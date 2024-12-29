@@ -1,4 +1,3 @@
-from aocd import get_data
 from typing import List
 
 

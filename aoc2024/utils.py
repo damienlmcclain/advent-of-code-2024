@@ -6,9 +6,10 @@ from typing import List, Tuple
 def input_parser(day: int = None,
                  year: int = None,
                  session_cookie: str = None,
-                 filename: str = None) -> list or str:
+                 filename: str = None,
+                 remove_whitespace: bool = False) -> List[str] or str:
     """
-    Finds the ints in each line and returns them as a list of lists.
+    Finds the values in each line and returns them as a list.
 
     Parameters
     ----------
@@ -21,6 +22,8 @@ def input_parser(day: int = None,
     filename
         If input, the name of the file to parse instead of pulling data using
         the day/year.
+    remove_whitespace
+        If True, removes all whitespace in the str.
 
     Returns
     -------
@@ -38,10 +41,15 @@ def input_parser(day: int = None,
         return 'Please enter a valid combination of inputs: either a ' \
                'filename to pull from locally or a day, year, and ' \
                'session_cookie.'
+
+    if remove_whitespace:
+        for idx, value in enumerate(input_data):
+            input_data[idx] = value
     return input_data
 
 
-def split_strings(str_list: List[str]) -> Tuple[List[int], List[int]]:
+def split_strings(str_list: List[str],
+                  num_spaces: int = 1) -> Tuple[List[int], List[int]]:
     """
     Takes in a list of str where spaces separate the values for list 1 and list 2.
 
@@ -49,6 +57,8 @@ def split_strings(str_list: List[str]) -> Tuple[List[int], List[int]]:
     ----------
     str_list
         List of strings of nums with spaces separating them.
+    num_spaces
+        The number of spaces between each number.
 
     Returns
     -------
@@ -58,9 +68,9 @@ def split_strings(str_list: List[str]) -> Tuple[List[int], List[int]]:
     list_1, list_2 = [], []
 
     for str_num in str_list:
-        list_1_str = str_num.split('   ')[0]
+        list_1_str = str_num.split(' ' * num_spaces)[0]
         list_1.append(int(list_1_str))
-        list_2_str = str_num.split('   ')[1]
+        list_2_str = str_num.split(' ' * num_spaces)[1]
         list_2.append(int(list_2_str))
 
     return list_1, list_2
