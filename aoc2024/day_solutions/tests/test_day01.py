@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from aoc2024.day01 import find_difference, find_similarity_score
+from aoc2024.day_solutions.day01 import find_difference, find_similarity_score
 from aoc2024.session_cookie import AOCD_SESSION_COOKIE
 from aoc2024.utils import input_parser, split_strings
 
@@ -18,7 +18,7 @@ class Test(TestCase):
         input_data = input_parser(day=1,
                                   year=2024,
                                   session_cookie=AOCD_SESSION_COOKIE)
-        list_1, list_2 = split_strings(input_data)
+        list_1, list_2 = split_strings(str_list=input_data, num_spaces=3)
         res = find_difference(location_list_1=list_1, location_list_2=list_2)
         expected_res = 1197984
         self.assertEqual(res, expected_res)
@@ -35,7 +35,7 @@ class Test(TestCase):
         input_data = input_parser(day=1,
                                   year=2024,
                                   session_cookie=AOCD_SESSION_COOKIE)
-        list_1, list_2 = split_strings(input_data)
+        list_1, list_2 = split_strings(str_list=input_data, num_spaces=3)
 
         res = find_similarity_score(location_list_1=list_1,
                                     location_list_2=list_2)
