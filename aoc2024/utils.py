@@ -1,6 +1,6 @@
 import aocd
 import os
-from typing import List
+from typing import List, Tuple
 
 
 def input_parser(day: int = None,
@@ -39,6 +39,31 @@ def input_parser(day: int = None,
                'filename to pull from locally or a day, year, and ' \
                'session_cookie.'
     return input_data
+
+
+def split_strings(str_list: List[str]) -> Tuple[List[int], List[int]]:
+    """
+    Takes in a list of str where spaces separate the values for list 1 and list 2.
+
+    Parameters
+    ----------
+    str_list
+        List of strings of nums with spaces separating them.
+
+    Returns
+    -------
+    Two lists with the first containing the first int in each string and the
+    second containing the second int in each string.
+    """
+    list_1, list_2 = [], []
+
+    for str_num in str_list:
+        list_1_str = str_num.split('   ')[0]
+        list_1.append(int(list_1_str))
+        list_2_str = str_num.split('   ')[1]
+        list_2.append(int(list_2_str))
+
+    return list_1, list_2
 
 
 def convert_str_to_int(str_list: List[str]) -> List[int]:
