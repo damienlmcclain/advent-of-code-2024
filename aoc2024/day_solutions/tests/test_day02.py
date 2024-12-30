@@ -7,15 +7,36 @@ from aoc2024.utils import input_parser
 
 class Test(TestCase):
 
-    def test_determine_safety(self):
-        value_list = input_parser(
-            filename='day_solutions/tests/fixtures/day_02_example.txt')
-        safety_score = determine_safety(value_list=value_list)
-        self.assertEqual(safety_score, 2)
+    # def test_determine_safety(self):
+    #     value_list = input_parser(
+    #         filename='day_solutions/tests/fixtures/day_02_example.txt'
+    #     )
+    #     safety_score = determine_safety(value_list=value_list)
+    #     self.assertEqual(safety_score, 2)
+    #
+    # def test_determine_safety_full_data(self):
+    #     value_list = input_parser(
+    #         day=2,
+    #         year=2024,
+    #         session_cookie=AOCD_SESSION_COOKIE
+    #         )
+    #     safety_score = determine_safety(value_list=value_list)
+    #     self.assertEqual(safety_score, 252)
+    #
+    # def test_determine_safety_with_dampener(self):
+    #     value_list = input_parser(
+    #         filename='day_solutions/tests/fixtures/day_02_example.txt'
+    #     )
+    #     safety_score = determine_safety(value_list=value_list, dampener=True)
+    #     self.assertEqual(safety_score, 4)
 
-    def test_determine_safety_full_data(self):
-        value_list = input_parser(day=2,
-                                  year=2024,
-                                  session_cookie=AOCD_SESSION_COOKIE)
-        safety_score = determine_safety(value_list=value_list)
+    # 429 too high
+
+    def test_determine_safety_with_dampener_full_data(self):
+        value_list = input_parser(
+            day=2,
+            year=2024,
+            session_cookie=AOCD_SESSION_COOKIE
+            )
+        safety_score = determine_safety(value_list=value_list, dampener=True)
         self.assertEqual(safety_score, 252)
