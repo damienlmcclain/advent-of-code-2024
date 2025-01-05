@@ -1,54 +1,99 @@
 from typing import List
 
 
-def determine_safety(value_list: List[str]) -> int:
+def massage_reports(reports: List[str]) -> List[List[int]]:
     """
-    Per day 2 of AoC, determines if reports are safe and returns the total
-    number of safe reports.
+    Given a list of strings, changes each value in the str into an int and
+    returns them as a list of lists of ints.
 
     Parameters
     ----------
-    value_list
-        The list of values to evaluate as str.
+    reports
+        List of str numbers separated by spaces.
 
     Returns
     -------
-    The number of safe reports.
+    A list of lists of ints.
     """
 
-    safety_score = 0
-    for values in value_list:
-        safe = True
-        last_num = None
-        increasing = True
-        decreasing = True
-        values = values.split(' ')
+    massaged_reports = []
+    for line in reports:
+        str_numbers = line.split(' ')
+        numbers = [int(x) for x in str_numbers]
+        massaged_reports.append(numbers)
 
-        for value in values:
-            if value == ' ':
+    return massaged_reports
+
+
+def determine_safety_score(report: List[int]) -> bool:
+    """
+    Determines whether the report is safe by checking
+    each level.
+
+    Parameters
+    ----------
+    report
+        List of ints to determine safety of.
+
+    Returns
+    -------
+    Whether the report is safe (True) or not (False).
+    """
+
+    increasing = None
+    for idx in range(len(report)):
+        if idx == 0:
+            continue
+
+        previous_level = int(report[idx - 1])
+        current_level = int(report[idx])
+
+        score = current_level - previous_level
+        if -3 > score or score > 3 or score == 0:
+            return False
+        if increasing is True and score < 0:
+            return False
+        if increasing is False and score > 0:
+            return False
+
+        if score < 0:
+            increasing = False
+        else:
+            increasing = True
+
+    return True
+
+
+def tally_up_score(reports: List[str], dampener: bool = False) -> int:
+    """
+    Tallies up the safety score of the input reports.
+
+    Parameters
+    ----------
+    reports
+        List of levels as strs.
+    dampener
+        Whether the dampener should be enabled (True)
+        or not (False).
+
+    Returns
+    -------
+    The number of reports that are safe.
+    """
+
+    reports = massage_reports(reports)
+    safe_reports = 0
+    for report in reports:
+        if determine_safety_score(report) is True:
+            safe_reports += 1
+        else:
+            if dampener is False:
                 continue
-
-            # if it's the first number, it doesn't need to be checked
-            if not last_num:
-                last_num = value
-            else:
-                value_difference = int(value) - int(last_num)
-                if value_difference > 0:
-                    decreasing = False
-                elif value_difference < 0:
-                    increasing = False
-
-                if increasing is False and decreasing is False:
-                    safe = False
+            for idx in range(len(report)):
+                report_copy = report.copy()
+                report_copy.pop(idx)
+                if determine_safety_score(report_copy) is True:
+                    safe_reports += 1
                     break
 
-                if abs(value_difference) not in [1, 2, 3]:
-                    safe = False
-                    break
-                else:
-                    last_num = value
-
-        if safe is True:
-            safety_score += 1
-
-    return safety_score
+    return safe_reports
