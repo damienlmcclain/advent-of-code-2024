@@ -59,7 +59,7 @@ def parse_input(corrupted_input: str) -> List[List[int]]:
     ]
 
     for idx in mul_indexes:
-        check = check_substring(corrupted_input[idx + 3:])
+        check = check_substring(corrupted_input[idx + len(str_to_find):])
         if check:
             list_of_nums.append(check)
 
