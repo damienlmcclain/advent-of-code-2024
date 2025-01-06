@@ -4,6 +4,7 @@ import re
 
 def check_substring(substring: str) -> List:
     """
+    Checks the substring for numbers in an (x, y) configuration.
 
     Parameters
     ----------
@@ -12,7 +13,8 @@ def check_substring(substring: str) -> List:
 
     Returns
     -------
-    A list of the first number pair within the substring.
+    A list of the first number pair within the substring as ints. If none
+    are found, returns an empty list.
     """
     nums = list(range(10))
     num_str_list = [str(x) for x in nums]
