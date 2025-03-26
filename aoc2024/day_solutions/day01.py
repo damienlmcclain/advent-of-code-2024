@@ -34,7 +34,7 @@ def find_difference(location_list_1: List[int],
 def find_similarity_score(location_list_1: List[int],
                           location_list_2: List[int]) -> int:
     """
-    Given two lists of ints, iterates through the first list and finds how many types that number is present
+    Given two lists of ints, iterates through the first list and finds how many times that number is present
     in the second list. Each int in the first list is multiplied by the number of times it appears in the second
     list. This solves day 1, part 2.
 
